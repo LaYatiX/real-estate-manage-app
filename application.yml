@@ -1,0 +1,25 @@
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+    corsEnabled: true
+    # if you want to @ExceptionHandler annotation for custom GraphQLErrors
+    exception-handlers-enabled: true
+spring:
+  datasource:
+    url: 'jdbc:postgresql://0.0.0.0:6543/estate-db'
+    username: 'postgres'
+    password: 'postgres'
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
