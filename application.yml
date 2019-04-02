@@ -9,9 +9,9 @@ graphql:
     exception-handlers-enabled: true
 spring:
   datasource:
-    url: 'jdbc:postgresql://0.0.0.0:6543/estate-db'
-    username: 'postgres'
-    password: 'postgres'
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
   jpa:
     properties:
       hibernate:
