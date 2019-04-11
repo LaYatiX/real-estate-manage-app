@@ -3,21 +3,22 @@ package pl.gpiwosz.estate.Resolver.Query;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.gpiwosz.estate.model.User;
-import pl.gpiwosz.estate.repository.UserRepository;
+import pl.gpiwosz.estate.model.SystemUser;
+import pl.gpiwosz.estate.repository.SystemUserRepository;
 
 import java.util.List;
 
+
 @RequiredArgsConstructor
 @Component
-public class UserQuery implements GraphQLQueryResolver {
-    private final UserRepository repository;
+public class SystemUserQuery implements GraphQLQueryResolver {
+    private final SystemUserRepository repository;
 
-    public User getUser(Long id) {
+    public SystemUser getSystemUser(Long id) {
         return repository.findById(id).get();
     }
 
-    public List<User> getUsers() {
+    public List<SystemUser> getSystemUsers() {
         return repository.findAll();
     }
 }

@@ -6,14 +6,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import pl.gpiwosz.estate.repository.UserRepository;
+import pl.gpiwosz.estate.repository.SystemUserRepository;
 
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class MyUserDetailsService implements UserDetailsService {
-    private final UserRepository repository;
+    private final SystemUserRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

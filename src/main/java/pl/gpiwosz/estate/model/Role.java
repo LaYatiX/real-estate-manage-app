@@ -2,6 +2,7 @@ package pl.gpiwosz.estate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "roles")
+@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Role implements Serializable {
 
@@ -22,7 +24,6 @@ public class Role implements Serializable {
     private Long id;
 
     private String name;
-    public Role(){}
     public Role(String name) {
         this.name = name;
     }

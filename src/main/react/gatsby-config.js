@@ -1,10 +1,12 @@
 const proxy = require("http-proxy-middleware")
+const fs = require("fs")
+const { buildSchema, buildClientSchema } = require("graphql")
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Estate management app`,
+    description: `Estate management app`,
+    author: `Grzegorz Piwosz`,
   },
   developMiddleware: app => {
     app.use(
@@ -24,6 +26,11 @@ module.exports = {
         // This is field under which it's accessible
         fieldName: "api",
         url: "http://localhost:8080/graphql",
+        refetchInterval: 60,
+        createSchema: async () => {
+          const json = fs.readFileSync(`${__dirname}/../resources/schema.graphql`).toString()
+          return buildSchema(json)
+        },
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -36,6 +43,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

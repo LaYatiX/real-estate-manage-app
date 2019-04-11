@@ -1,15 +1,188 @@
 type Query {
-    getUser(username: String!): User
+    getUser(id: Int!): User
+    getSystemUser(id: Int!): SystemUser
+    getRole(id: Int!): Role
+    getConsumption(id: Int!): Consumption
+    getEstate(id: Int!): Estate
+    getApartment(id: Int!): Apartment
+
+    getUsers: [User]
+    getSystemUsers: [SystemUser]
+    getRoles: [Role]
+    getConsumptions: [Consumption]
+    getEstates: [Estate]
+    getApartments: [Apartment]
 }
 type Mutation {
-    createUser(name: String!): User
+    createUser(user: UserInput!): User!
+    updateUser(id: Int!, user: UserInput!): User!
+    deleteUser(id: Int!): Int!
+
+    createSystemUser(systemUser: SystemUserInput!): SystemUser!
+    updateSystemUser(id: Int!, systemUser: SystemUserInput!): SystemUser!
+    deleteSystemUser(id: Int!): Int!
+
+    createRole(role: RoleInput!): Role!
+    updateRole(id: Int!, role: RoleInput!): Role!
+    deleteRole(id: Int!): Int!
+
+    createConsumption(consumption: ConsumptionInput!): Consumption!
+    updateConsumption(id: Int!, consumption: ConsumptionInput!): Consumption!
+    deleteConsumption(id: Int!): Int!
+
+    createEstate(estate: EstateInput!): Estate!
+    updateEstate(id: Int!, estate: EstateInput!): Estate!
+    deleteEstate(id: Int!): Int!
+
+    createApartment(apartment: ApartmentInput!): Apartment!
+    updateApartment(id: Int!, apartment: ApartmentInput!): Apartment!
+    deleteApartment(id: Int!): Int!
 }
 
+type SystemUser {
+    id: Int
+    user: User
+    username: String
+    password: String
+    active: Boolean
+    roles: [Role]
+}
+
+
 type User {
-    name: String
+    id: Int
     pesel: String
+    name: String
     surname: String
     address: String
+    email: String
+    phone: Int
+    bankAccount: String
+}
+
+type Consumption {
+    id: Int
+    apartment: Apartment
+    writingDate: String
+    waterConsumption: Float
+    energyConsumption: Float
+    gasConsumption: Float
+    mediaConsumption: Float
+}
+
+type Apartment {
+    id: Int
+    residents: [User]
+    rent: String
+    apartmentNumber: Int
+}
+
+type Estate {
+    id: Int
+    address: String
+    apartments: [Apartment]
+    floors: Int
+    area: Float
+    isElevator: Boolean
+    isParking: Boolean
+    entranceCode: Int
+}
+
+type Role{
+    id: Int
+    name: String
+}
+
+input SystemUserInput {
+    user: UserInput
     username: String
+    password: String
     active: Boolean
+    roles: [Int]
+}
+
+input UserInput{
+    pesel: String
+    name: String
+    surname: String
+    address: String
+    email: String
+    phone: Int
+    bankAccount: String
+}
+
+input ApartmentInput {
+    residents: [Int]
+    rent: Int
+    apartmentNumber: Int
+}
+
+input EstateInput {
+    address: String
+    apartments: [Int]
+    floors: Int
+    area: Float
+    isElevator: Boolean
+    isParking: Boolean
+    entranceCode: Int
+}
+
+input ConsumptionInput {
+    apartment: Int
+    writingDate: String
+    waterConsumption: Float
+    energyConsumption: Float
+    gasConsumption: Float
+    mediaConsumption: Float
+}
+
+input RoleInput{
+    name: String
+}
+
+
+
+#
+#mutation createUser($user: UserInput!) {
+#    createUser(user: $user) {
+#        username
+#        address
+#        name
+#        surname
+#        pesel
+#    }
+#}
+#
+
+query getUsers{
+    getUsers{
+        pesel
+        name
+        surname
+        address
+        email
+        phone
+        bankAccount
+    }
+}
+query getSystemUsers{
+    getSystemUsers{
+        user{
+            id
+            name
+        }
+        username
+    }
+}
+
+mutation create($user: UserInput!){
+    createUser(user: $user){
+        phone
+    }
+}
+
+mutation createSystemUser($systemUser: SystemUserInput!){
+    createSystemUser(systemUser: $systemUser){
+        id
+    }
 }

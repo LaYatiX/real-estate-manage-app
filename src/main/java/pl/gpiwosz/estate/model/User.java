@@ -8,13 +8,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@NoArgsConstructor
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Data
+@Entity
 @Table(name = "users")
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class User extends AuditModel implements Serializable {
+public class User extends AuditModel {
 
     @Id
     @GeneratedValue
@@ -25,32 +25,27 @@ public class User extends AuditModel implements Serializable {
     )
     private Long id;
 
-    @Column(unique=true)
-    private String username;
-    private String password;
+    protected String pesel;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Role> roles;
+    protected String name;
 
-    @Column(name = "active")
-    private Boolean active = true;
+    protected String surname;
 
-    private String pesel;
+    protected String address;
 
-    private String name;
+    protected String email;
 
-    private String surname;
+    protected Long phone;
 
-    private String address;
+    protected String bankAccount;
 
-    public User(String username, String password, List<Role> roles, Boolean active, String pesel,  String name, String surname, String address) {
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-        this.active = active;
-        this.address = address;
+    public User(String pesel, String name, String surname, String address, String email, Long phone, String bankAccount) {
+        this.pesel = pesel;
         this.name = name;
         this.surname = surname;
-        this.pesel = pesel;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.bankAccount = bankAccount;
     }
 }

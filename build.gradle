@@ -28,7 +28,6 @@ dependencies {
     compile "com.graphql-java-kickstart:graphql-spring-boot-starter:$LIB_GRAPHQL_SPRING_BOOT_VER"
     compile "com.graphql-java-kickstart:graphiql-spring-boot-starter:$LIB_GRAPHQL_SPRING_BOOT_VER"
     compile group: 'com.graphql-java-kickstart', name: 'altair-spring-boot-starter', version: "$LIB_GRAPHQL_SPRING_BOOT_VER"
-//    compile 'com.graphql-java-kickstart:graphql-spring-boot-starter:5.7.0'
     compile 'com.graphql-java-kickstart:graphql-java-tools:5.5.1'
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile 'org.springframework.boot:spring-boot-starter-security'
