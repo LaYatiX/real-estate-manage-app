@@ -11,6 +11,7 @@ import pl.gpiwosz.estate.mappers.SystemUserMapper;
 import pl.gpiwosz.estate.mappers.UserMapper;
 import pl.gpiwosz.estate.model.Role;
 import pl.gpiwosz.estate.model.SystemUser;
+import pl.gpiwosz.estate.repository.RoleRepository;
 import pl.gpiwosz.estate.repository.SystemUserRepository;
 
 import javax.transaction.Transactional;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SystemUserMutation implements GraphQLMutationResolver {
     private final SystemUserRepository repository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     private final String NOT_FOUND = "Obiekt o podanym id nie istnieje.";
@@ -31,14 +33,17 @@ public class SystemUserMutation implements GraphQLMutationResolver {
                 systemUser.getUsername(),
                 passwordEncoder.encode(systemUser.getPassword()),
                 systemUser.getActive(),
-                RoleMapper.map(systemUser.getRoles())
+                RoleMapper.map(systemUser.getRoles(), Role.class)
         ));
     }
 
     public SystemUser updateSystemUser(final Long id, final SystemUserInput systemUserInput) {
         systemUserInput.setPassword(passwordEncoder.encode(systemUserInput.getPassword()));
-        return repository.findById(id).map(user ->
-                repository.save(SystemUserMapper.toEntity(systemUserInput))
+        return repository.findById(id).map(systemUser -> {
+                    SystemUserMapper.update(systemUser, systemUserInput);
+                    systemUser.setRoles(systemUserInput.getRoles().stream().map(roleRepository::getOne).collect(Collectors.toList()));
+                    return repository.save(systemUser);
+                }
         ).orElseThrow(() -> new ApiException(NOT_FOUND));
     }
 

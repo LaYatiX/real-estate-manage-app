@@ -14,10 +14,10 @@ const UsersList = () => {
         query {
             api{
               getUsers {
+                  id
                   name
+                  surname
                   pesel
-                  username
-                  active
                   address
               }
             }
@@ -26,9 +26,9 @@ const UsersList = () => {
       render={data => (
         <div>
           <ul>
-            {data.api.getUsers.map((data)=>(
-              <ItemList>{data.name}</ItemList>
-            ))}
+            {data.api.getUsers.map((data)=>{
+              return <ItemList key={data.id}>{data.name} {data.surname} - {data.pesel}</ItemList>
+            })}
           </ul>
         </div>
       )}

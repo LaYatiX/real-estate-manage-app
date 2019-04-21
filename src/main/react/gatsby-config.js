@@ -12,7 +12,7 @@ module.exports = {
     app.use(
       '/graphql',
       proxy({
-        target: 'http://localhost:8080'
+        target: 'http://localhost:9000'
       })
     )
   },
@@ -25,10 +25,10 @@ module.exports = {
         typeName: "API",
         // This is field under which it's accessible
         fieldName: "api",
-        url: "http://localhost:8080/graphql",
+        url: "http://localhost:9000/graphql",
         refetchInterval: 60,
         createSchema: async () => {
-          const json = fs.readFileSync(`${__dirname}/../resources/schema.graphql`).toString()
+          const json = fs.readFileSync(`${__dirname}/../resources/graphql/query.graphql`).toString()
           return buildSchema(json)
         },
       },

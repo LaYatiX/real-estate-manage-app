@@ -3,7 +3,9 @@ package pl.gpiwosz.estate.mappers;
 import pl.gpiwosz.estate.inputs.UserInput;
 import pl.gpiwosz.estate.model.User;
 
-public class UserMapper {
+import java.util.List;
+
+public class UserMapper extends AbstractMapper{
     public static User toEntity(final UserInput input) {
         if (input == null) {
             return null;
@@ -23,4 +25,15 @@ public class UserMapper {
 
         return entity;
     }
+
+//    public static List<User> map(final List<Long> userIds){
+//        if (userIds == null) {
+//            return null;
+//        }
+//        return userIds.stream().map(id -> {
+//            User user = new User();
+//            user.setId(id);
+//            return user;
+//        }).collect(Collectors.toList());
+//    }
 }

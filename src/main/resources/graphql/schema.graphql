@@ -1,0 +1,202 @@
+query getUsers{
+    getUsers{
+        id
+        pesel
+        name
+        surname
+        address
+        email
+        phone
+        bankAccount
+    }
+}
+query getUser($id: Int!){
+    getUser(id: $id){
+        name
+        surname
+    }
+}
+query getSystemUsers{
+    getSystemUsers{
+        id
+        username
+        user{
+            id
+            name
+            surname
+        }
+    }
+}
+query getSystemUser($id: Int!){
+    getSystemUser(id: $id){
+        username
+        user{
+            name
+        }
+    }
+}
+query getConsumptions{
+    getConsumptions{
+        id
+        writingDate
+        waterConsumption
+        apartment{
+            rent
+            apartmentNumber
+        }
+    }
+}
+query getConsumption($id: Int!){
+    getConsumption(id: $id){
+        id
+        writingDate
+        waterConsumption
+        apartment{
+            rent
+            apartmentNumber
+        }
+    }
+}
+
+
+query getApartments{
+    getApartments{
+        id
+
+    }
+}
+query getApartment($id: Int!){
+    getApartment(id: $id){
+        id
+    }
+}
+
+
+query getEstates{
+    getEstates{
+        id
+
+    }
+}
+query getEstate($id: Int!){
+    getEstate(id: $id){
+        id
+    }
+}
+
+query getRoles{
+    getRoles{
+        id
+        name
+    }
+}
+query getRole($id: Int!){
+    getRole(id: $id){
+        id
+    }
+}
+
+
+mutation createUser($user: UserInput!){
+    createUser(user: $user){
+        name
+        surname
+    }
+}
+
+mutation updateUser($id: Int!, $user: UserInput!){
+    updateUser(id: $id, user: $user){
+        name
+        surname
+    }
+}
+
+mutation deleteUser($id: Int!){
+    deleteUser(id: $id)
+}
+
+mutation createSystemUser($systemUser: SystemUserInput!){
+    createSystemUser(systemUser: $systemUser){
+        id
+    }
+}
+
+mutation updateSystemUser($id: Int!, $systemUser: SystemUserInput!){
+    updateSystemUser(id: $id, systemUser: $systemUser){
+        user{
+            name
+            surname
+        }
+        username
+    }
+}
+
+mutation deleteSystemUser($id: Int!){
+    deleteSystemUser(id: $id)
+}
+
+mutation createConsumption($consumption: ConsumptionInput!){
+    createConsumption(consumption: $consumption){
+        id
+    }
+}
+
+mutation updateConsumption($id: Int!, $consumption: ConsumptionInput!){
+    updateConsumption(id: $id, consumption: $consumption){
+        id
+    }
+}
+
+mutation deleteConsumption($id: Int!){
+    deleteConsumption(id: $id)
+}
+
+mutation createApartment($apartment: ApartmentInput!){
+    createApartment(apartment: $apartment){
+        id
+    }
+}
+
+mutation updateApartment($id: Int!, $apartment: ApartmentInput!){
+    updateApartment(id: $id, apartment: $apartment){
+        id
+    }
+}
+
+mutation deleteApartment($id: Int!){
+    deleteApartment(id: $id)
+}
+
+mutation createEstate($estate: EstateInput!){
+    createEstate(estate: $estate){
+        id
+    }
+}
+
+mutation updateEstate($id: Int!, $estate: EstateInput!){
+    updateEstate(id: $id, estate: $estate){
+        id
+    }
+}
+
+mutation deleteEstate($id: Int!){
+    deleteEstate(id: $id)
+}
+
+mutation createRole($role: RoleInput!){
+    createRole(role: $role){
+        id
+    }
+}
+
+mutation updateRole($id: Int!, $role: RoleInput!){
+    updateRole(id: $id, role: $role){
+        id
+    }
+}
+
+mutation deleteRole($id: Int!){
+    deleteRole(id: $id)
+}
+
+

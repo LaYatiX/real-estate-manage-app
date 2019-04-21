@@ -2,27 +2,20 @@ package pl.gpiwosz.estate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "estate")
 @Data
+@Entity
+@EqualsAndHashCode
+@Table(name = "estate")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Estate extends AuditModel{
-    @Id
-    @GeneratedValue
-    @SequenceGenerator(
-            name = "estate_generator",
-            sequenceName = "estate_sequence",
-            initialValue = 1000
-    )
-    private Long id;
-
     private String address;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Apartment> apartments;
 
     Long floors;

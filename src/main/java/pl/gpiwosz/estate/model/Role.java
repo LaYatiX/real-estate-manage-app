@@ -2,6 +2,7 @@ package pl.gpiwosz.estate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,21 +10,13 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "roles")
+@EqualsAndHashCode
 @NoArgsConstructor
+@Table(name = "roles")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Role implements Serializable {
-
-    @Id
-    @GeneratedValue
-    @SequenceGenerator(
-            name = "user_generator",
-            sequenceName = "user_sequence",
-            initialValue = 1000
-    )
-    private Long id;
-
+public class Role extends AuditModel {
     private String name;
+
     public Role(String name) {
         this.name = name;
     }

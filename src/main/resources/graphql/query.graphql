@@ -1,3 +1,8 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
 type Query {
     getUser(id: Int!): User
     getSystemUser(id: Int!): SystemUser
@@ -128,8 +133,8 @@ input EstateInput {
 }
 
 input ConsumptionInput {
-    apartment: Int
-    writingDate: String
+    apartment: Int!
+    writingDate: String!
     waterConsumption: Float
     energyConsumption: Float
     gasConsumption: Float
@@ -142,47 +147,3 @@ input RoleInput{
 
 
 
-#
-#mutation createUser($user: UserInput!) {
-#    createUser(user: $user) {
-#        username
-#        address
-#        name
-#        surname
-#        pesel
-#    }
-#}
-#
-
-query getUsers{
-    getUsers{
-        pesel
-        name
-        surname
-        address
-        email
-        phone
-        bankAccount
-    }
-}
-query getSystemUsers{
-    getSystemUsers{
-        user{
-            id
-            name
-        }
-        username
-    }
-}
-
-mutation create($user: UserInput!){
-    createUser(user: $user){
-        phone
-    }
-}
-
-mutation createSystemUser($systemUser: SystemUserInput!){
-    createSystemUser(systemUser: $systemUser){
-        id
-    }
-}

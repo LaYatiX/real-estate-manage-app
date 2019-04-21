@@ -8,8 +8,8 @@ import pl.gpiwosz.estate.repository.ApartmentRepository;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class ApartmentQuery implements GraphQLQueryResolver {
     private final ApartmentRepository repository;
 

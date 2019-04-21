@@ -2,29 +2,20 @@ package pl.gpiwosz.estate.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
+@EqualsAndHashCode
 @Table(name = "system_user")
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class SystemUser {
-    @Id
-    @GeneratedValue
-    @SequenceGenerator(
-            name = "system_user_generator",
-            sequenceName = "system_user_sequence",
-            initialValue = 1000
-    )
-    private Long id;
-
+public class SystemUser extends AuditModel{
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
     private String username;

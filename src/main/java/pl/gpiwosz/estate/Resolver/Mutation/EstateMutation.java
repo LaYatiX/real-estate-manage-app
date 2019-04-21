@@ -7,15 +7,18 @@ import pl.gpiwosz.estate.exception.ApiException;
 import pl.gpiwosz.estate.inputs.EstateInput;
 import pl.gpiwosz.estate.mappers.EstateMapper;
 import pl.gpiwosz.estate.model.Estate;
+import pl.gpiwosz.estate.repository.ApartmentRepository;
 import pl.gpiwosz.estate.repository.EstateRepository;
 
 import javax.transaction.Transactional;
+import java.util.stream.Collectors;
 
 @Component
 @Transactional
 @RequiredArgsConstructor
 public class EstateMutation implements GraphQLMutationResolver {
     private final EstateRepository repository;
+    private final ApartmentRepository apartmentRepository;
 
     private final String NOT_FOUND = "Obiekt o podanym id nie istnieje.";
 
@@ -23,9 +26,12 @@ public class EstateMutation implements GraphQLMutationResolver {
         return repository.save(EstateMapper.toEntity(systemEstate));
     }
 
-    public Estate updateEstate(final Long id, final EstateInput systemEstate) {
-        return repository.findById(id).map(estate ->
-                repository.save(EstateMapper.toEntity(systemEstate))
+    public Estate updateEstate(final Long id, final EstateInput estateInput) {
+        return repository.findById(id).map(estate -> {
+                    EstateMapper.update(estate, estateInput);
+                    estate.setApartments(estateInput.getApartments().stream().map(apartmentRepository::getOne).collect(Collectors.toList()));
+                    return repository.save(estate);
+                }
         ).orElseThrow(() -> new ApiException(NOT_FOUND));
     }
 

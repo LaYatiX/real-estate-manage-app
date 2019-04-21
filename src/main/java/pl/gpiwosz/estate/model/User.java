@@ -2,28 +2,19 @@ package pl.gpiwosz.estate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Entity
-@Table(name = "users")
+@EqualsAndHashCode
 @NoArgsConstructor
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends AuditModel {
-
-    @Id
-    @GeneratedValue
-    @SequenceGenerator(
-            name = "user_generator",
-            sequenceName = "user_sequence",
-            initialValue = 1000
-    )
-    private Long id;
 
     protected String pesel;
 

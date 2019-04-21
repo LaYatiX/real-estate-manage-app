@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import pl.gpiwosz.estate.exception.ApiException;
 import pl.gpiwosz.estate.inputs.RoleInput;
 import pl.gpiwosz.estate.mappers.RoleMapper;
+import pl.gpiwosz.estate.mappers.UserMapper;
 import pl.gpiwosz.estate.model.Role;
 import pl.gpiwosz.estate.repository.RoleRepository;
 
@@ -24,8 +25,10 @@ public class RoleMutation implements GraphQLMutationResolver {
     }
 
     public Role updateRole(final Long id, final RoleInput systemRole) {
-        return repository.findById(id).map(role ->
-                repository.save(RoleMapper.toEntity(systemRole))
+        return repository.findById(id).map(role -> {
+                    RoleMapper.update(role, systemRole);
+                    return repository.save(role);
+                }
         ).orElseThrow(() -> new ApiException(NOT_FOUND));
     }
 
